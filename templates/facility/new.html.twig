@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Facility{% endblock %}
+
+{% block body %}
+    <h1>Create new Facility</h1>
+
+    {{ include('facility/_form.html.twig') }}
+
+    <a href="{{ path('app_facility_index') }}">back to list</a>
+{% endblock %}

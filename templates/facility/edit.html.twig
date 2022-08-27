@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Facility{% endblock %}
+
+{% block body %}
+    <h1>Edit Facility</h1>
+
+    {{ include('facility/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_facility_index') }}">back to list</a>
+
+    {{ include('facility/_delete_form.html.twig') }}
+{% endblock %}
