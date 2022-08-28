@@ -15,7 +15,7 @@ trait DateTrait
     private ?DateTime $createdAt;
 
     #[ORM\Column(nullable: true)]
-    private ?DateTime $updatedAt = null;
+    private ?DateTime $updatedAt;
 
     /**
      * Get the date of creation
@@ -56,12 +56,7 @@ trait DateTrait
         return $this;
     }
 
-    /**
-     * Gets triggered only on insert.
-     * Set created date.
-     *
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function onPrePersist()
     {
         $this->createdAt = new \DateTime('now');
@@ -69,12 +64,7 @@ trait DateTrait
         return $this;
     }
 
-    /**
-     * Gets triggered only on update.
-     * Set updated datetime.
-     *
-     * @ORM\PreUpdate
-     */
+    #[ORM\PreUpdate]
     public function onPreUpdate()
     {
         $this->updatedAt = new \DateTime('now');

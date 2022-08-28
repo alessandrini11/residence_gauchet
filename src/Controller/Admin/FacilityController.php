@@ -31,6 +31,7 @@ class FacilityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $facilityRepository->add($facility, true);
 
+            $this->addFlash('success', 'facilté créée');
             return $this->redirectToRoute('app_facility_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -57,6 +58,7 @@ class FacilityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $facilityRepository->add($facility, true);
 
+            $this->addFlash('info', 'facilité modifiée');
             return $this->redirectToRoute('app_facility_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,7 +74,7 @@ class FacilityController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$facility->getId(), $request->request->get('_token'))) {
             $facilityRepository->remove($facility, true);
         }
-
+        $this->addFlash('danger', 'facilité supprimé');
         return $this->redirectToRoute('app_facility_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,11 +15,9 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('image')
-            ->add('isApproved')
+            ->add('image', FileType::class, array('data_class' => null, 'required' => false))
             ->add('categories')
             ->add('user')
-            ->add('visitors')
         ;
     }
 

@@ -7,12 +7,28 @@ use App\Traits\DateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(
+    fields: 'email',
+    message: 'Cet email est utilisé'
+)]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use DateTrait;
     
+    const ROLE_USER = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
+    const ROLES = [
+        self::ROLE_ADMIN => "Admin",
+        self::ROLE_USER => "User"
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -21,7 +37,8 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Email]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -39,10 +56,14 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Room::class)]
     private Collection $rooms;
 
+    #[ORM\Column(nullable: true)]
+    private array $roles = [];
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->rooms = new ArrayCollection();
+        $this->isBlocked = false;
     }
 
     public function getId(): ?int
@@ -168,5 +189,44 @@ class User
         }
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    /**
+     * Returns the identifier for this user (e.g. its username or email address).
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function setRoles(?array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function __toString()
+    {
+        return $this->pseudo;
     }
 }

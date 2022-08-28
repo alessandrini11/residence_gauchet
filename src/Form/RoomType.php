@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Room;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +17,22 @@ class RoomType extends AbstractType
             ->add('name')
             ->add('capacity')
             ->add('surface')
-            ->add('type')
+            ->add('type', ChoiceType::class, [
+                'choices' => array_flip(Room::TYPES),
+                'expanded' => false,
+                'multiple' => false,
+                'required' => true
+            ])
             ->add('price')
             ->add('description')
             ->add('facilities')
+            ->add('images', FileType::class, [
+                'mapped' => false,
+                'multiple' => true,
+                'data_class' => null, 
+                'required' => true,
+            ])
             ->add('user')
-            ->add('visitors')
         ;
     }
 

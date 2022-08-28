@@ -20,3 +20,5 @@
 ###< symfony/phpunit-bridge ###
 .env
 .env.test
+public/uploads/posts/*
+public/uploads/rooms/*

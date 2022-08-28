@@ -13,6 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Room
 {
     use DateTrait;
+
+    const APPARTEMENT = 'appartement';
+    const STUDIO = 'studio';
+    
+    const TYPES = [
+        self::APPARTEMENT => "Appartement",
+        self::STUDIO => "Studio"
+    ];
     
     #[ORM\Id]
     #[ORM\GeneratedValue]

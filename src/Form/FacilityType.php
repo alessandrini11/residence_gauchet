@@ -13,7 +13,6 @@ class FacilityType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('rooms')
         ;
     }
 
