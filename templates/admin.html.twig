@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="">
+        <div class="grid grid-cols-1 lg:grid-cols-12 relative">
+            <div class="hidden lg:block col-span-2 h-screen px-5 border-2 border-r-blue-900 text-blue-900">
+                <p class="py-6">
+                    <a to="/" class="text-2xl font-medium ">
+                    Dashboard
+                    </a>
+                </p>
+                <div class="space-y-3">
+                    <ul class="space-y-3">
+                        <li class="">
+                            <a href="{{path('admin')}}" class="border-b-2 border-blue-500 w-fit pb-1">Dashoard</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_room_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Appartements</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_post_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Articles</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_category_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Categories</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_facility_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Facilités</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_user_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Utilisateurs</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="lg:col-span-10">
+                <nav class="z-10 py-6 bg-blue-900 text-white relative">
+                    <div class="w-11/12 mx-auto">
+                        <div class="flex justify-between">
+                            <div class="">Résidence Gauchet</div>
+                                <ul class="hidden lg:flex space-x-5">
+                                    <li>
+                                        <span>Bienvenu(e) Admin</span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                            <i class="fa fa-cog text-xl"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span>
+                                            <i class="fa fa-power-off text-xl"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <button id="menu-button" class="lg:hidden">
+                                    <i class="fa fa-bars text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="mobile-menu" class="z-20 absolute w-full top-0 -left-full h-screen px-8 border-2 text-blue-900 bg-white lg:hidden transition-all duration-500">
+                        <p class="py-6 flex justify-between">
+                            <a href="/" className="text-2xl font-medium ">
+                                Dashboard
+                            </a>
+                            <button id="mobile-menu-close" className="text-xl lg:hidden">
+                                <i class="fa fa-xmark text-xl"></i>
+                            </button>
+                        </p>
+                        <div class="space-y-3">
+                            <span>Pages</span>
+                            <ul class="space-y-3">
+                                <li>
+                                    <a href="{{path('app_post_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Articles</a>          
+                                </li>
+                                <li>
+                                    <a href="{{path('app_room_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Appartements</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('app_category_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Categories</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('app_facility_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Facilités</a>
+                                </li>
+                                <li>
+                                    <a href="{{path('app_user_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Utilisateurs</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="mt-5 flex space-x-5">
+                            <li>
+                                <span class="cursor-pointer">Bienvenu(e) Admin</span>
+                            </li>
+                            <li>
+                                <span class="cursor-pointer">
+                                    <i class="fa fa-cog text-xl"></i>
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <i class="fa fa-power-off text-xl"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                
+                {% block body %}{% endblock %}
+                <footer class="py-5 bg-blue-900">
+                    <div class="container">
+                        <div class="text-center text-white">
+                            <p>Minimal Admin Dashboard</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <span id="to-top-button" class="z-20 text-2xl transition-all duration-700 fixed bottom-20 right-5 p-2 text-blue-900 bg-blue-100 rounded-md cursor-pointer">
+                <i class="fa fa-arrow-up"></i>
+            </span> 
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    </body>
+</html>

@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Post
 {
     use DateTrait;
@@ -25,7 +26,7 @@ class Post
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column]

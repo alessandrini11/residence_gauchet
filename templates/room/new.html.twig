@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}New Room{% endblock %}
 
 {% block body %}
-    <h1>Create new Room</h1>
-
-    {{ include('room/_form.html.twig') }}
-
-    <a href="{{ path('app_room_index') }}">back to list</a>
+    <div class="w-11/12 mx-auto">
+        <h3>Poster un Appartement</h3>
+        {{ include('room/_form.html.twig') }}
+        <a href="{{ path('app_room_index') }}">back to list</a>
+    </div>
 {% endblock %}

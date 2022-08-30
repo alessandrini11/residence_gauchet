@@ -59,9 +59,13 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
         $form = $this->createForm(UserType::class, $user);
+        $oldPassword = $user->getPassword();
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
+            if(!$form->get('password')){
+                $user->setPassword($oldPassword);
+            }
             $userRepository->add($user, true);
 
             $this->addFlash('info', 'utilisateur modifié');

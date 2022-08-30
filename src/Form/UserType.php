@@ -22,17 +22,17 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mot de passes doivent être identiques',
                 'options' => ['attr' => ['class' => 'password-field']],
-                'required' => true,
+                'required' => false,
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmation'],
+                'empty_data' => ''
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => array_flip(User::ROLES),
                 'expanded' => false,
                 'multiple' => true,
                 'required' => true
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

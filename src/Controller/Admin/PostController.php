@@ -6,8 +6,10 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Services\ImagesService;
+use App\Services\VisitorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     const DIRECTORY = 'posts_directory';
-    
+
     #[Route('/', name: 'app_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
@@ -39,7 +41,7 @@ class PostController extends AbstractController
             $post->setIsApproved(false);
             $postRepository->add($post, true);
 
-            $this->addFlash('success','article créé');
+            $this->addFlash('success', 'article créé');
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -50,8 +52,10 @@ class PostController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
-    public function show(Post $post): Response
+    public function show(Post $post, VisitorService $visitorService, Request $request): Response
     {
+        $ip = $request->getClientIp();
+        $visitorService->isVisitedPost($post, $ip);
         return $this->render('post/show.html.twig', [
             'post' => $post,
         ]);
@@ -60,13 +64,18 @@ class PostController extends AbstractController
     #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
     public function edit(ImagesService $imagesService, Request $request, Post $post, PostRepository $postRepository): Response
     {
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
 
+        $form = $this->createForm(PostType::class, $post);
+
+        $post->setImage(
+            new File($this->getParameter('kernel.project_dir') . '/public' . $post->getImage())
+        );
+        $form->handleRequest($request);
+        $oldImage = $post->getImage();
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            if($form->get('image')){
-                $imagesService->removeImage($post->getImage());
+            $post->setImage($request->request->get('old_image'));
+            if ($form->get('image')) {
+                $imagesService->removeImage($oldImage);
                 $uploadedImageFile = $form->get('image')->getData();
                 $imageUrl = $imagesService->uploadImage($uploadedImageFile, self::DIRECTORY);
                 $post->setImage($imageUrl);
@@ -85,11 +94,11 @@ class PostController extends AbstractController
     #[Route('/{id}', name: 'app_post_delete', methods: ['POST'])]
     public function delete(ImagesService $imagesService, Request $request, Post $post, PostRepository $postRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $postRepository->remove($post, true);
         }
         $imagesService->removeImage($post->getImage());
-        $this->addFlash('success', 'article supprimé');
+        $this->addFlash('danger', 'article supprimé');
         return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
     }
 }

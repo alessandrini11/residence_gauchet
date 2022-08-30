@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600&family=Roboto:wght@100;300;500&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+@layer base {
+  body {
+    scroll-behavior: smooth;
+  }
+  .container {
+    @apply w-10/12 mx-auto;
+  }
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+  section {
+    @apply py-10;
+  }
+  .floating-info {
+    @apply py-2 px-3 bg-white rounded-l-md right-0 bottom-5;
+  }
+  .floating-category {
+    @apply py-2 px-3 bg-white rounded-r-md left-0 top-5 text-blue-900;
+  }
+  .floating-category-list {
+    @apply py-2 px-3 bg-white rounded-l-md right-0 top-20 text-blue-900;
+  }
+  .increase-hover {
+    @apply transform transition hover:scale-110;
+  }
+}

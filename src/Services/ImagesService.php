@@ -23,7 +23,7 @@ class ImagesService
     }
     public function uploadImage(UploadedFile $file, string $directory): string
     {
-        if(!$this->filesystem->exists($this->parameter->get($directory))){
+        if (!$this->filesystem->exists($this->parameter->get($directory))) {
             $this->filesystem->mkdir($this->parameter->get($directory));
         }
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -40,14 +40,14 @@ class ImagesService
         } catch (FileException $e) {
             echo $e->getMessage();
         }
-        $publicDir = explode("{$this->parameter->get('kernel.project_dir')}/", $this->parameter->get($directory))[1];
-        
+        $publicDir = explode("{$this->parameter->get('kernel.project_dir')}/public", $this->parameter->get($directory))[1];
+
         return "{$publicDir}/{$newFilename}";
     }
 
     public function removeImage(string $path): void
     {
-        $absolutePath = $this->parameter->get('kernel.project_dir') ."/". $path;
+        $absolutePath = $this->parameter->get('kernel.project_dir') . "/public" . $path;
         $this->filesystem->remove($absolutePath);
     }
 }

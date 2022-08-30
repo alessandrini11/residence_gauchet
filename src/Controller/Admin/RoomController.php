@@ -7,6 +7,7 @@ use App\Entity\Room;
 use App\Form\RoomType;
 use App\Repository\RoomRepository;
 use App\Services\ImagesService;
+use App\Services\VisitorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,6 @@ class RoomController extends AbstractController
                 $image->setLink($imageUrl);
                 $room->addImage($image);
             }
-            $room->setCreatedAt(new \DateTime('now'));
             $roomRepository->add($room, true);
 
             $this->addFlash('success', 'appartement créé');
@@ -54,8 +54,10 @@ class RoomController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_room_show', methods: ['GET'])]
-    public function show(Room $room): Response
+    public function show(Room $room, VisitorService $visitorService, Request $request): Response
     {
+        $ip = $request->getClientIp();
+        $visitorService->isVisitedRoom($room, $ip);
         return $this->render('room/show.html.twig', [
             'room' => $room,
         ]);
@@ -67,15 +69,20 @@ class RoomController extends AbstractController
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
 
+        $oldImages = $room->getImages();
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedImages = $form->get('images')->getData();
-            foreach ($uploadedImages as $file) {
-                $imageUrl = $imagesService->uploadImage($file, self::DIRECTORY);
-                $image = new Image();
-                $image->setLink($imageUrl);
-                $room->addImage($image);
+            if($form->get('images')->getData()){
+                foreach ($oldImages as $image) {
+                    $imagesService->removeImage($image->getLink());
+                }
+                $uploadedImages = $form->get('images')->getData();
+                foreach ($uploadedImages as $file) {
+                    $imageUrl = $imagesService->uploadImage($file, self::DIRECTORY);
+                    $image = new Image();
+                    $image->setLink($imageUrl);
+                    $room->addImage($image);
+                }
             }
-            $room->setUpdatedAt(new \DateTime('now'));
             $roomRepository->add($room, true);
 
             $this->addFlash('info', 'appartement modifié');

@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     fields: 'email',
     message: 'Cet email est utilisé'
 )]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use DateTrait;
@@ -41,7 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Vous devez entrer une valeur')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]

@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VisitorRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Visitor
 {
     use DateTrait;

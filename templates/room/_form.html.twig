@@ -1,4 +1,36 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="">
+        {{ form_widget(form.name,{'attr':{'placeholder': 'Nom','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="space-y-2">
+        <label for="">Type</label>
+        {{ form_widget(form.type,{'attr':{'placeholder': 'Surface','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="">
+        {{ form_widget(form.capacity,{'attr':{'placeholder': 'Capacité','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="">
+        {{ form_widget(form.surface,{'attr':{'placeholder': 'Surface','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="space-y-2">
+        <label for="">Facilité</label>
+        {{ form_widget(form.facilities,{'attr':{'placeholder': 'Facilité','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="">
+
+        {{ form_widget(form.price,{'attr':{'placeholder': 'Price en euro','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="space-y-5">
+        {{ form_widget(form.images,{'attr':{'class':'mt-2 w-full focus:outline-none py-2 px-4'}}) }}
+        <div id="images-displayer" class="hidden  relative grid grid-cols-4 gap-5">
+          
+        </div>
+    </div>
+    <div class="">
+        {{ form_widget(form.description,{'attr':{'placeholder': 'Description','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="">
+        {{ form_widget(form.user,{'attr':{'placeholder': 'Title','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <button class="w-full bg-green-500 py-2 mt-2 rounded text-white flex items-center justify-center">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

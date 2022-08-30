@@ -20,5 +20,12 @@
 ###< symfony/phpunit-bridge ###
 .env
 .env.test
-public/uploads/posts/*
+**/posts
 public/uploads/rooms/*
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
