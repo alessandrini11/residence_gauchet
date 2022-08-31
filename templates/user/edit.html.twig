@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
     <div class="w-11/12 mx-auto">
         <h3>Modifiez Utilisateur</h3>
-        {{ include('user/_form.html.twig') }}
+        {{ include('user/_form.html.twig', {'edit': true}) }}
         <a href="{{ path('app_user_index') }}">back to list</a>
     </div>
 {% endblock %}

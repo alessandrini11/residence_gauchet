@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/room')]
+#[Route('/admin/room')]
 class RoomController extends AbstractController
 {
     const DIRECTORY = 'rooms_directory';
@@ -34,13 +34,14 @@ class RoomController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedImages = $form->get('images')->getData();
+            $uploadedImages = $form->get('files')->getData();
             foreach ($uploadedImages as $file) {
                 $imageUrl = $imagesService->uploadImage($file, self::DIRECTORY);
                 $image = new Image();
                 $image->setLink($imageUrl);
                 $room->addImage($image);
             }
+            $room->setUser($this->getUser());
             $roomRepository->add($room, true);
 
             $this->addFlash('success', 'appartement créé');
@@ -71,11 +72,11 @@ class RoomController extends AbstractController
 
         $oldImages = $room->getImages();
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('images')->getData()){
+            if ($form->get('files')->getData()) {
                 foreach ($oldImages as $image) {
                     $imagesService->removeImage($image->getLink());
                 }
-                $uploadedImages = $form->get('images')->getData();
+                $uploadedImages = $form->get('files')->getData();
                 foreach ($uploadedImages as $file) {
                     $imageUrl = $imagesService->uploadImage($file, self::DIRECTORY);
                     $image = new Image();
@@ -98,7 +99,7 @@ class RoomController extends AbstractController
     #[Route('/{id}', name: 'app_room_delete', methods: ['POST'])]
     public function delete(ImagesService $imagesService, Request $request, Room $room, RoomRepository $roomRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $room->getId(), $request->request->get('_token'))) {
             $roomRepository->remove($room, true);
         }
         foreach ($room->getImages() as $file) {

@@ -19,6 +19,9 @@
         {% endblock %}
     </head>
     <body class="">
+        <span id="to-top-button" class="z-20 text-2xl transition-all duration-700 fixed bottom-20 right-5 p-2 text-blue-900 bg-blue-100 rounded-md cursor-pointer">
+            <i class="fa fa-arrow-up"></i>
+        </span> 
         <div class="grid grid-cols-1 lg:grid-cols-12 relative">
             <div class="hidden lg:block col-span-2 h-screen px-5 border-2 border-r-blue-900 text-blue-900">
                 <p class="py-6">
@@ -53,10 +56,11 @@
                 <nav class="z-10 py-6 bg-blue-900 text-white relative">
                     <div class="w-11/12 mx-auto">
                         <div class="flex justify-between">
-                            <div class="">Résidence Gauchet</div>
+                            <a href="">Résidence Gauchet</a>
+                            <div class="">
                                 <ul class="hidden lg:flex space-x-5">
                                     <li>
-                                        <span>Bienvenu(e) Admin</span>
+                                        <span>Bienvenu(e) {{app.user.name}}</span>
                                     </li>
                                     <li>
                                         <span>
@@ -64,9 +68,9 @@
                                         </span>
                                     </li>
                                     <li>
-                                        <span>
+                                        <a href={{path('app_logout')}}>
                                             <i class="fa fa-power-off text-xl"></i>
-                                        </span>
+                                        </a>
                                     </li>
                                 </ul>
                                 <button id="menu-button" class="lg:hidden">
@@ -77,52 +81,31 @@
                     </div>
                     
                     <div id="mobile-menu" class="z-20 absolute w-full top-0 -left-full h-screen px-8 border-2 text-blue-900 bg-white lg:hidden transition-all duration-500">
-                        <p class="py-6 flex justify-between">
-                            <a href="/" className="text-2xl font-medium ">
+                        <div class="py-6 flex justify-between">
+                            <a href="/" class="text-2xl font-medium ">
                                 Dashboard
                             </a>
-                            <button id="mobile-menu-close" className="text-xl lg:hidden">
+                            <button id="mobile-menu-close" class="text-xl lg:hidden">
                                 <i class="fa fa-xmark text-xl"></i>
                             </button>
-                        </p>
+                        </div>
                         <div class="space-y-3">
                             <span>Pages</span>
                             <ul class="space-y-3">
-                                <li>
-                                    <a href="{{path('app_post_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Articles</a>          
-                                </li>
-                                <li>
-                                    <a href="{{path('app_room_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Appartements</a>
-                                </li>
-                                <li>
-                                    <a href="{{path('app_category_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Categories</a>
-                                </li>
-                                <li>
-                                    <a href="{{path('app_facility_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Facilités</a>
-                                </li>
-                                <li>
-                                    <a href="{{path('app_user_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Utilisateurs</a>
-                                </li>
+                                <li><a href="{{path('app_post_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Articles</a></li>
+                                <li><a href="{{path('app_room_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Appartements</a></li>
+                                <li><a href="{{path('app_category_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Categories</a></li>
+                                <li><a href="{{path('app_facility_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Facilités</a></li>
+                                <li><a href="{{path('app_user_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Utilisateurs</a></li>
                             </ul>
                         </div>
                         <ul class="mt-5 flex space-x-5">
-                            <li>
-                                <span class="cursor-pointer">Bienvenu(e) Admin</span>
-                            </li>
-                            <li>
-                                <span class="cursor-pointer">
-                                    <i class="fa fa-cog text-xl"></i>
-                                </span>
-                            </li>
-                            <li>
-                                <span>
-                                    <i class="fa fa-power-off text-xl"></i>
-                                </span>
-                            </li>
+                            <li><span class="cursor-pointer">Bienvenu(e) {{app.user.name}} </span></li>
+                            <li><span class="cursor-pointer"><i class="fa fa-cog text-xl"></i></span></li>
+                            <li><a href={{path('app_logout')}}><i class="fa fa-power-off text-xl"></i></a></li>
                         </ul>
                     </div>
                 </nav>
-                
                 {% block body %}{% endblock %}
                 <footer class="py-5 bg-blue-900">
                     <div class="container">
@@ -132,9 +115,6 @@
                     </div>
                 </footer>
             </div>
-            <span id="to-top-button" class="z-20 text-2xl transition-all duration-700 fixed bottom-20 right-5 p-2 text-blue-900 bg-blue-100 rounded-md cursor-pointer">
-                <i class="fa fa-arrow-up"></i>
-            </span> 
         </div>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     </body>

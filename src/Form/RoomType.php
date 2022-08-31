@@ -26,13 +26,12 @@ class RoomType extends AbstractType
             ->add('price')
             ->add('description')
             ->add('facilities')
-            ->add('images', FileType::class, [
+            ->add('files', FileType::class, [
                 'mapped' => false,
                 'multiple' => true,
                 'data_class' => null, 
-                'required' => true,
+                'required' => false,
             ])
-            ->add('user')
         ;
     }
 

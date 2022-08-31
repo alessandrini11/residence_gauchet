@@ -49,6 +49,8 @@ class Room
     #[ORM\ManyToMany(targetEntity: Facility::class, inversedBy: 'rooms')]
     private Collection $facilities;
 
+    private ?string $files;
+
     #[ORM\OneToMany(mappedBy: 'room', targetEntity: Image::class, cascade: ["persist", "remove"])]
     private Collection $images;
 

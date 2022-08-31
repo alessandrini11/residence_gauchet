@@ -1,4 +1,5 @@
 {{ form_start(form) }}
+
     <div class="">
         {{ form_widget(form.name,{'attr':{'placeholder': 'Name','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
@@ -9,13 +10,15 @@
         {{ form_widget(form.email,{'attr':{'placeholder': 'Email','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
     <div class="">
-        {{ form_widget(form.password.first,{'attr':{'placeholder': 'Mot de passe','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+        {{ form_errors(form.plainPassword) }}
+        {{ form_widget(form.plainPassword.first,{'attr':{'placeholder': 'Mot de passe','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
     <div class="">
-        {{ form_widget(form.password.second,{'attr':{'placeholder': 'Confirmation','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+        {{ form_widget(form.plainPassword.second,{'attr':{'placeholder': 'Confirmation','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
     <div class="">
         {{ form_widget(form.roles,{'attr':{'placeholder': 'Title','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
     <button class="w-full bg-green-500 py-2 mt-2 rounded text-white flex items-center justify-center">{{ button_label|default('Save') }}</button>
+    {{ form_widget(form) }}
 {{ form_end(form) }}

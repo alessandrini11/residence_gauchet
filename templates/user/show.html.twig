@@ -26,13 +26,13 @@
                         </li>
                         <li class="px-2">
                             <span class="font-medium mr-2">Etat</span>:
-                            {% if (user.isBlocked) %}
-                                <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">
-                                    Actif
-                                </span>
-                            {% else %}
+                            {% if user.isBlocked %}
                                 <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">
                                     Inactif
+                                </span>
+                            {% else %}
+                                <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">
+                                    Actif
                                 </span>
                             {% endif %}
                         </li>
@@ -46,18 +46,21 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                 </svg>
                             </a>
+                            {% if is_granted('ROLE_ADMIN') %}
                             <label
-                                for="red-toggle"
+                                for="toggle-user"
                                 class="inline-flex relative items-center mr-5 cursor-pointer"
                                 >
                                 <input
                                     type="checkbox"
-                                    id="red-toggle"
+                                    id="toggle-user"
                                     class="sr-only peer"
-                                    {% if user.isBlocked %} checked {% endif %}
+                                    value={{user.id}}
+                                    {% if not user.isBlocked %} checked {% endif %}
                                 />
                                 <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                             </label>
+                            {% endif %}
                             {{ include('user/_delete_form.html.twig') }}
                             </div>
                         </div>

@@ -18,14 +18,13 @@ class UserType extends AbstractType
             ->add('name')
             ->add('email')
             ->add('pseudo')
-            ->add('password', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mot de passes doivent être identiques',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => false,
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmation'],
-                'empty_data' => ''
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => array_flip(User::ROLES),

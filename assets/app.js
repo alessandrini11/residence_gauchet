@@ -7,25 +7,57 @@ const selectMultiple = require('select2')
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-const menuBtnOpen = document.getElementById("menu-button")
+const menuBtnOpen = $("#menu-button")
 const mobileMenu = document.getElementById("mobile-menu")
-const menuBtnClose = document.getElementById("mobile-menu-close")
-const toTopButton = document.getElementById("to-top-button")
-const imageUploader = document.getElementById("post_image")
-const imagesUploader = document.getElementById("room_images")
+const menuBtnClose = $("#mobile-menu-close")
+const toTopButton = $("#to-top-button")
+const imageUploader = document.getElementById("post_file")
+const imagesUploader = document.getElementById("room_files")
 const imageUploadDisplayer = document.getElementById("image-displayer")
 const imagesUploadDisplayer = document.getElementById("images-displayer")
 const imageUploadPreview = document.getElementById("image-preview")
 const closeImagePreview = document.getElementById("close-image-preview")
+// const menu = document.getElementById("menu")
 const imagesDisplayer = $("#images-displayer")
+const togglePostButton = $('#toggle-post')
+const toogleUserButton = $('#toggle-user')
 
-const menu = document.getElementById("menu")
+const toogleEntity = (id, entity) => {
+    fetch(
+        `/admin/${entity}/approved/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+    .then(response => {
+        location.reload(true)
+    })
+    .catch(error => console.log(error))
+}
+
+if(togglePostButton){
+    const id = togglePostButton.val()
+    togglePostButton.on('change',() => {
+        toogleEntity(id, 'post')
+    })
+}
+
+if(toogleUserButton){
+    const id = toogleUserButton.val()
+    toogleUserButton.on('change',() => {
+        toogleEntity(id, 'user')
+    })
+}
+
+
 
 if(closeImagePreview){
     closeImagePreview.addEventListener('click', () => {
         imageUploadPreview.src = ""
         imageUploader.value = ""
-        imageUploadDisplayer.classList.add("hidden")
+        imageUploadDisplayer.addClass("hidden")
     })
 }
 
@@ -37,11 +69,8 @@ if (imagesUploader) {
         fileObj.push(e.target.files);
         for (let i = 0; i < fileObj[0].length; i++) {
             let imagesUploadPreview = $("<div></div>").addClass('relative')
-            let image = $("<img />").addClass("w-full aspect-square rounded-md")
-            
-            
+            let image = $("<img />").addClass("w-full aspect-square rounded-md")           
             image.attr("src", URL.createObjectURL(fileObj[0][i]))
-            console.log(image)
             imagesUploadPreview.append(image)
             images.push(imagesUploadPreview)
         }
@@ -57,26 +86,26 @@ if (imageUploader) {
         imageUploadPreview.src = URL.createObjectURL(e.target.files[0])
     })
 }
-menuBtnOpen.addEventListener('click', () => {
+menuBtnOpen.on('click', () => {
     mobileMenu.classList.toggle("-left-full")
 })
 
-menuBtnClose.addEventListener('click', () => {
+menuBtnClose.on('click', () => {
     mobileMenu.classList.toggle("-left-full")
 })
 
-toTopButton.addEventListener('click', () => {
+toTopButton.on('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
 })
 
 window.addEventListener('scroll', (e) => {
-    if(menu){
+    if(1 === 1){
         if(window.scrollY > 100){
-            toTopButton.classList.remove('hidden')
-            menu.classList.add("fixed")
+            toTopButton.removeClass('hidden')
+            // menu.classList.add("fixed")
         } else {
-            toTopButton.classList.add('hidden')
-            menu.classList.remove("fixed")
+            toTopButton.addClass('hidden')
+            // menu.classList.remove("fixed")
         }
     }
 })

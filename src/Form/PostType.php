@@ -15,9 +15,11 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('image', FileType::class, array('data_class' => null, 'required' => false))
+            ->add('file', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                ])
             ->add('categories')
-            ->add('user')
         ;
     }
 

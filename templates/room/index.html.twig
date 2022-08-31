@@ -3,131 +3,133 @@
 {% block title %}Appartement{% endblock %}
 
 {% block body %}
-    <section class="">
-        <div class="w-11/12 mx-auto">
-          <h3 class="text-3xl font-medium text-gray-600">Appartements</h3>
-          <div class="">
-            {% for message in app.flashes('success') %}
-                <div class="bg-green-200 text-green-600 py-3 text-center">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            {% for message in app.flashes('info') %}
-                <div class="bg-blue-200 text-blue-600 py-3 text-center">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            {% for message in app.flashes('danger') %}
-                <div class="bg-red-200 text-red-600 py-3 text-center">
-                    {{ message }}
-                </div>
-            {% endfor %}
-          </div>
-          <div class="flex justify-between pt-3">
-            <span></span>
-            <a href="{{path('app_room_new')}}" class="h-7 w-14 rounded bg-green-500 flex items-center justify-center text-white">
-                <i class="fa fa-plus"></i>
-            </a>
-          </div>
-          <div class="">
-            <div class="">
-              <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
-                <div class="w-full">
-                  <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
-                    <table class="min-w-max w-full table-auto">
-                      <thead>
-                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                          <th class="py-3 px-6 text-left">nom</th>
-                          <th class="py-3 px-6 text-center">type</th>
-                          <th class="py-3 px-6 text-center">capacité</th>
-                          <th class="py-3 px-6 text-center">surface</th>
-                          <th class="py-3 px-6 text-center">prix</th>
-                          <th class="py-3 px-6 text-center">vues</th>
-                          <th class="py-3 px-6 text-center">images</th>
-                          <th class="py-3 px-6 text-center">utilisateur</th>
-                          <th class="py-3 px-6 text-center">ajouté le</th>
-                          <th class="py-3 px-6 text-center">Actions</th>
+<section class="">
+    <div class="w-11/12 mx-auto">
+      <h3 class="text-3xl font-medium text-gray-600">Appartements</h3>
+      <div class="">
+        {% for message in app.flashes('success') %}
+            <div class="bg-green-200 text-green-600 py-3 text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('info') %}
+            <div class="bg-blue-200 text-blue-600 py-3 text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="bg-red-200 text-red-600 py-3 text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+      </div>
+      <div class="flex justify-between pt-3">
+        <span></span>
+        <a href="{{path('app_room_new')}}" class="h-7 w-14 rounded bg-green-500 flex items-center justify-center text-white">
+            <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <div class="">
+        <div class="">
+          <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
+            <div class="w-full">
+              <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
+                <table class="min-w-max w-full table-auto">
+                  <thead>
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                      <th class="py-3 px-6 text-left">nom</th>
+                      <th class="py-3 px-6 text-center">type</th>
+                      <th class="py-3 px-6 text-center">capacité</th>
+                      <th class="py-3 px-6 text-center">surface</th>
+                      <th class="py-3 px-6 text-center">prix</th>
+                      <th class="py-3 px-6 text-center">vues</th>
+                      <th class="py-3 px-6 text-center">images</th>
+                      <th class="py-3 px-6 text-center">utilisateur</th>
+                      <th class="py-3 px-6 text-center">ajouté le</th>
+                      <th class="py-3 px-6 text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-gray-600 text-sm font-light">
+                    {% for room in rooms %}
+                      <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">
+                        <td class="py-3 px-6 text-left">
+                          <div class="flex items-center">
+                            <span class="">{{room.name}}</span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-left">
+                          <div class="flex items-center">
+                            <span class="">{{room.type}}</span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                            <span>{{room.capacity}}</span>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                            <span>{{room.surface}} m²</span>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span>{{room.price}} €</span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span>{{room.visitors | length}}</span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span>{{room.images | length}}</span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span>
+                              {% if room.user %}
+                                {{room.user.pseudo}}
+                              {% endif %}
+                            </span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span>
+                              {{room.createdAt | date('d M y')}}
+                            </span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex item-center justify-center">
+                            <a href="{{path('app_room_show', {id: room.id})}}" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </a>
+                            <a href={{path('app_room_edit', {id: room.id})}} class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                            </a>
+                            <div class="">
+                                {{ include('room/_delete_form.html.twig') }}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">no records found</td>
                         </tr>
-                      </thead>
-                      <tbody class="text-gray-600 text-sm font-light">
-                        {% for room in rooms %}
-                          <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">
-                            <td class="py-3 px-6 text-left">
-                              <div class="flex items-center">
-                                <span class="">{{room.name}}</span>
-                              </div>
-                            </td>
-                            <td class="py-3 px-6 text-left">
-                              <div class="flex items-center">
-                                <span class="">{{room.type}}</span>
-                              </div>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                                <span>{{room.capacity}}</span>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                                <span>{{room.surface}} m²</span>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                              <div class="flex items-center justify-center">
-                                <span>{{room.price}} €</span>
-                              </div>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                              <div class="flex items-center justify-center">
-                                <span>{{room.visitors | length}}</span>
-                              </div>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                              <div class="flex items-center justify-center">
-                                <span>{{room.images | length}}</span>
-                              </div>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                              <div class="flex items-center justify-center">
-                                <span>
-                                  {{room.user.pseudo}}
-                                </span>
-                              </div>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                              <div class="flex items-center justify-center">
-                                <span>
-                                  {{room.createdAt | date('d M y')}}
-                                </span>
-                              </div>
-                            </td>
-                            <td class="py-3 px-6 text-center">
-                              <div class="flex item-center justify-center">
-                                <a href="{{path('app_room_show', {id: room.id})}}" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                </a>
-                                <a href={{path('app_room_edit', {id: room.id})}} class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                    </svg>
-                                </a>
-                                <div class="">
-                                    {{ include('room/_delete_form.html.twig') }}
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="6">no records found</td>
-                            </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
-    </section>
+      </div>
+    </div>
+</section>
 {% endblock %}
