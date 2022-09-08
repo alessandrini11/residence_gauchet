@@ -5,8 +5,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -15,8 +17,130 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        <style>
+            .mapouter {
+                position: relative;
+                text-align: right;
+                height: 400px;
+                width: 400px;
+            }
+        </style>
     </head>
     <body>
+        <span id="to-top-button" class="z-20 transition-all duration-700 fixed bottom-20 right-5 p-2 text-blue-900 bg-blue-100 rounded-md cursor-pointer hidden">
+            <i class="text-2xl fa-solid fa-arrow-up"></i>
+        </span>
+        <!-- navigation -->
+        <div id="menu" class="z-10 bg-white lg:block top-0 right-0 left-0 w-full">
+            <div class="container-custom">
+                <nav class="flex justify-between items-center h-16">
+                    <a href="" class="font-semibold text-blue-900 text-3xl">Résidence Gauchet</a>
+                    <ul class="hidden lg:flex items-center space-x-8">
+                        <li><a href={{path('app_home')}}>Accueil</a></li>
+                        <li><a href={{path('app_apropos')}}>A propos</a></li>
+                        <li><a href={{path('app_gallerie')}}>Gallerie</a></li>
+                        <li><a href={{path('app_appartements')}}>Appartements</a></li>
+                        <li><a href={{path('app_blog')}}>Blog</a></li>
+                        <li class="bg-blue-100 text-blue-900 py-2 px-4 rounded"><a href="contact.html">Contact</a></li>
+                        {% if app.user %}
+                        <li><a href={{path('admin')}}>Tableau de bord</a></li>
+                        <li><a href={{path('app_logout')}}>Déconnexion</a></li>
+                        {% endif %}
+                    </ul>
+                    <button id="menu-button" class="lg:hidden">
+                        <i class="text-2xl fa-solid fa-bars"></i>
+                    </button>
+                </nav>
+                {# <nav id="mobile-menu-front"
+                    class="z-10 bg-white space-y-5 fixed top-0 right-0 -right-full h-screen w-full transition-all duration-500">
+                    <div class="container-custom">
+                        <div class="flex justify-between items-center h-16">
+                            <a href="" class="font-semibold text-blue-900 text-3xl">Résidence Gauchet</a>
+                            <button id="mobile-menu-close">
+                                <i class="text-2xl fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <ul class=" text-xl space-y-5">
+                            <li><a href={{path('app_home')}}>Accueil</a></li>
+                            <li><a href={{path('app_apropos')}}>A propos</a></li>
+                            <li><a href="">Logement</a></li>
+                            <li><a href="">Blog</a></li>
+                            <li class=""><a href="">Contact</a></li>
+                            <li><i class="text-blue-900 fa-brands fa-facebook-f"></i></li>
+                        </ul>
+                    </div>
+                </nav> #}
+            </div>
+        </div>
         {% block body %}{% endblock %}
+        <!-- footer -->
+        <footer class=" text-white text-2xl">
+            <div class="py-16 bg-blue-900">
+                <div class="container-custom">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+                        <div class="">
+                            <p class="mb-3"><a class="text-3xl font-semibold capitalize" href="">residence gauchet</a></p>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold mb-3">Liens rapides</h4>
+                            <ul class="font-thin text-base">
+                                <li>Accueil</li>
+                                <li>A propos</li>
+                                <li>Appartements</li>
+                                <li>Blog</li>
+                            </ul>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold">Contact</h4>
+                            <div class="div">
+                                <div class="flex space-x-5">
+                                    <span>
+                                        <i class="text-base fa-solid fa-location-dot"></i>
+                                    </span>
+                                    <ul class="space-y-1 text-base">
+                                        <li class="font-thin text-base">Petit marché Odza, Yaoundé</li>
+                                    </ul>
+                                </div>
+                                <div class="flex space-x-5">
+                                    <span>
+                                        <i class="text-base fa-solid fa-phone"></i>
+                                    </span>
+                                    <ul class="font-thin text-base">
+                                        <li> +33 658 698 778</li>
+                                        <li> +237 659 639 784</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h4>Suivez Nous</h4>
+                            <ul>
+                                <li><i class="text-base fa-brands fa-facebook-f"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-3 text-center text-xs text-black">
+                <span>Contact developper ©  All rights reserved Copyrights 2021</span>
+            </div>
+        </footer>
     </body>
+    <div id="fb-root"></div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v14.0&appId=2808832269373288&autoLogAppEvents=1" nonce="sopTV7Qr"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            $('.carousel').slick({
+                dots: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 5000,
+            });
+        })
+        
+    </script>
 </html>

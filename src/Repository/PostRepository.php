@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\models\SearchPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,21 @@ class PostRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+    public function searchByName(SearchPost $searchPost): array
+    {
+        $query = $this->createQueryBuilder('p');
+        if(!empty($searchPost->title)){
+            $query->andWhere('p.title LIKE :title')
+                ->orWhere('p.content LIKE :title')
+                ->setParameter('title', "%{$searchPost->title}%");
+        }
+
+        return $query->andWhere('p.isApproved = true')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     public function add(Post $entity, bool $flush = false): void

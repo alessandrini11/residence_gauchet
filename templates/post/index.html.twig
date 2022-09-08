@@ -43,6 +43,7 @@
                         <th class="py-3 px-6 text-center">auteur(e)</th>
                         <th class="py-3 px-6 text-center">vues</th>
                         <th class="py-3 px-6 text-center">Etat</th>
+                        <th class="py-3 px-6 text-center">Posté le</th>
                         <th class="py-3 px-6 text-center">Actions</th>
                       </tr>
                     </thead>
@@ -100,6 +101,11 @@
                                   </span>
                                 {% endif %}
                               </span>
+                            </div>
+                          </td>
+                          <td class="py-3 px-6 text-center">
+                            <div class="flex items-center justify-center">
+                              <span>{{post.createdAt | date('d M y')}}</span>
                             </div>
                           </td>
                           <td class="py-3 px-6 text-center">

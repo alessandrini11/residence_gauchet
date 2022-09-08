@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+    {% block body%}
+    <div class="container-custom">
+        <nav class="bg-gray-100 px-5 py-3 rounded-md w-full">
+            <ol class="list-reset flex">
+                <li><a href={{path('app_home')}} class="text-blue-900 ">Accueil</a></li>
+                <li><span class="text-gray-500 mx-2">/</span></li>
+                <li class="text-gray-500">Blog</li>
+            </ol>
+        </nav>
+    </div>
+    <p class="bg-blue-50 my-5">
+        <div class="container-custom">
+            <div class="">
+                <h3>Blog</h3>
+            </div>
+        </div>
+    </p>
+    <section class="">
+        <div class="container-custom">
+            <div class="grid lg:grid-cols-3 space-y-5 lg:space-y-0 lg:space-x-5">
+                <div class="lg:col-span-2">
+                    <div class="space-y-5">
+                        {% for post in posts | reverse %}
+                            <div class="shadow lg:flex bg-white rounded-md">
+                                <div class="relative w-full md:w-1/2">
+                                    <img class="w-full aspect-video rounded-t-md lg:rounded-l-md" src={{asset(post.image)}}
+                                        alt="">
+                                    <span class="absolute floating-category-list">{{post.categories[0].name}}</span>
+                                </div>
+                                <div class="px-6 py-3 space-y-1 flex-1 ">
+                                    <p class="text-2xl font-semibold text-blue-900"><a href={{path('app_blog_detail', {id: post.id})}}>{{post.title}}</a>
+                                    </p>
+                                    <p class="text-sm font-light ">{{post.content | slice(0, 200) | raw}} ...</p>
+                                    <div class="">
+                                        <a href={{path('app_blog_detail', {id: post.id})}} class=" text-blue-900 text-sm">Voir plus</a>
+                                    </div>
+                                    <div class="flex mt-5 text-sm font-light space-x-5">
+                                        <div>
+                                            <span><i class="fa-regular fa-clock"></i></span>
+                                            <span>{{post.createdAt | date('d M y')}}</span>
+                                        </div>
+                                        <div>
+                                            <span><i class="fa-regular fa-eye"></i></span>
+                                            <span> {{post.visitors | length}} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {# <div class="container-custom mt-5">
+                        <div class="flex justify-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="flex list-style-none">
+                                    <li class="page-item disabled"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-500 pointer-events-none focus:shadow-none"
+                                            href="#" tabindex="-1" aria-disabled="true">Précédent</a></li>
+                                    <li class="page-item"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                            href="#">1</a></li>
+                                    <li class="page-item active"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-blue-900 outline-none transition-all duration-300 rounded-full text-white hover:text-white hover:bg-blue-900 shadow-md focus:shadow-md"
+                                            href="#">2 <span class="visually-hidden"></span></a></li>
+                                    <li class="page-item"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                            href="#">3</a></li>
+                                    <li class="page-item"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                            href="#">Suivant</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div> #}
+                </div>
+
+                <div class="lg:col-span-1">
+                    <div class="p-6 bg-white rounded-md space-y-5">
+                        <div class="">
+                            {{ form_start(searchForm, {attr: {class: 'filter js-filter-form '}}) }}
+                            <div class="flex h-12 border border-blue-900">
+                                {{ form_widget(searchForm.title, {attr: {class: 'w-full flex h-full outline-none pl-5'}}) }}
+                                <button type="submit" class="bg-blue-900 text-white flex items-center px-5"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                            {{ form_end(searchForm) }}
+                        </div>
+                        <div class="space-y-3">
+                            <h3>Categories</h3>
+                            <ul class="space-y-2 font-thin">
+                                {% for category in categories %}
+                                    <li class="increase-hover"><a href={{path('app_category_detail', {id: category.id})}} class="">{{category.name}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="space-y-3">
+                            <div id="fixed-bar" class="w-full">
+                                <div class="fb-page" data-href="https://web.facebook.com/UdlaJudo" data-tabs="timeline" data-width="" data-height="250" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/UdlaJudo" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/UdlaJudo">Douala University Club judo</a></blockquote></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

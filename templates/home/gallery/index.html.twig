@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'gallerie' %}
+
+{% block body %}
+<div class="container-custom">
+    <nav class="bg-gray-100 px-5 py-3 rounded-md w-full">
+        <ol class="list-reset flex">
+            <li><a href={{path('app_home')}} class="text-blue-900 ">Accueil</a></li>
+            <li><span class="text-gray-500 mx-2">/</span></li>
+            <li class="text-gray-500">Gallerie</li>
+        </ol>
+    </nav>
+</div>
+<p class="bg-blue-50 my-5">
+    <div class="container-custom">
+        <div class="">
+            <h3>Gallerie</h3>
+        </div>
+    </div>
+</p>
+<section>
+    <div class="container-custom">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/1.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/2.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/6.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                        <div data-aos-duration="1000" data-aos="zoom-in" class="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{include('home/parts/_reservation.html.twig')}}
+{% endblock %}

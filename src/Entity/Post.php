@@ -42,10 +42,14 @@ class Post
     #[ORM\ManyToMany(targetEntity: Visitor::class, mappedBy: 'posts')]
     private Collection $visitors;
 
+    #[ORM\Column]
+    private ?bool $isAdminPick = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->visitors = new ArrayCollection();
+        $this->isAdminPick = false;
     }
 
     public function getId(): ?int
@@ -160,6 +164,18 @@ class Post
         if ($this->visitors->removeElement($visitor)) {
             $visitor->removePost($this);
         }
+
+        return $this;
+    }
+
+    public function isIsAdminPick(): ?bool
+    {
+        return $this->isAdminPick;
+    }
+
+    public function setIsAdminPick(bool $isAdminPick): self
+    {
+        $this->isAdminPick = $isAdminPick;
 
         return $this;
     }

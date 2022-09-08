@@ -1,33 +1,48 @@
 {{ form_start(form) }}
+<div class="space-y-2">
     <div class="">
-        {{ form_widget(form.name,{'attr':{'placeholder': 'Nom','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+        <label for="">Nom</label>
+        {{ form_widget(form.name,{'attr':{'placeholder': 'Nom','class':'w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
-    <div class="space-y-2">
+    <div class="">
         <label for="">Type</label>
         {{ form_widget(form.type,{'attr':{'placeholder': 'Surface','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
     <div class="">
-        {{ form_widget(form.capacity,{'attr':{'placeholder': 'Capacité','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+        <label for="">Capacité</label>
+        {{ form_widget(form.capacity,{'attr':{'placeholder': 'Capacité','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
     <div class="">
-        {{ form_widget(form.surface,{'attr':{'placeholder': 'Surface','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+        <label for="">Surface</label>
+        {{ form_widget(form.surface,{'attr':{'placeholder': 'Surface','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
-    <div class="space-y-2">
+    <div class="">
+        <label for="">chambres</label>
+        {{ form_widget(form.bedroom,{'attr':{'placeholder': 'Nombre de chambres','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="">
+        <label for="">Douches</label>
+        {{ form_widget(form.shower,{'attr':{'placeholder': 'Nombre de douches','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="">
+        <label for="">Prix</label>
+        {{ form_widget(form.price,{'attr':{'placeholder': 'Prix en euro','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+    </div>
+    <div class="">
         <label for="">Facilité</label>
         {{ form_widget(form.facilities,{'attr':{'placeholder': 'Facilité','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
+    
     <div class="">
-
-        {{ form_widget(form.price,{'attr':{'placeholder': 'Price en euro','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
-    </div>
-    <div class="space-y-5">
-        {{ form_widget(form.files,{'attr':{'class':'mt-2 w-full focus:outline-none py-2 px-4'}}) }}
+        {{ form_widget(form.files,{'attr':{'class':' w-full focus:outline-none py-2 px-4'}}) }}
         <div id="images-displayer" class="hidden  relative grid grid-cols-4 gap-5">
           
         </div>
     </div>
     <div class="">
-        {{ form_widget(form.description,{'attr':{'placeholder': 'Description','class':'mt-2 w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+        <label for="">Description</label>
+        {{ form_widget(form.description,{'attr':{'placeholder': 'Description','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
     </div>
-    <button class="w-full bg-green-500 py-2 mt-2 rounded text-white flex items-center justify-center">{{ button_label|default('Save') }}</button>
+    <button class="w-full bg-green-500 py-2  rounded text-white flex items-center justify-center">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}

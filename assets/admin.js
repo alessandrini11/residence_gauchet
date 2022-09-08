@@ -1,14 +1,8 @@
+AOS.init();
 const $ = require('jquery')
-const selectMultiple = require('select2')
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
 
-const menuBtnOpen = $("#menu-button")
-const mobileMenuFront = document.getElementById("mobile-menu-front")
+const menuBtnOpen = document.getElementById("menu-button")
+const mobileMenuFront = document.getElementById("mobile-menu")
 const menuBtnClose = $("#mobile-menu-close")
 const toTopButton = $("#to-top-button")
 const imageUploader = document.getElementById("post_file")
@@ -23,7 +17,6 @@ const togglePostButton = $('#toggle-post')
 const toogleUserButton = $('#toggle-user')
 const fixedScroll = document.getElementById('fixed-scroll')
 const fixedBar = document.getElementById('fixed-bar')
-
 
 if(fixedScroll){
     window.addEventListener('scroll', (e) => {
@@ -111,14 +104,13 @@ toTopButton.on('click', () => {
 })
 
 window.addEventListener('scroll', (e) => {
-    
     if(1 === 1){
         if(window.scrollY > 100){
             toTopButton.removeClass('hidden')
-            // menu.classList.add("fixed")
+            menu.classList.add("fixed")
         } else {
             toTopButton.addClass('hidden')
-            // menu.classList.remove("fixed")
+            menu.classList.remove("fixed")
         }
     }
 })
@@ -129,10 +121,3 @@ $(document).ready(() => {
     $('#room_facilities').select2()
     $('#user_roles').select2()
 })
-
-
-// any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
-import './custom'
-// start the Stimulus application
-import './bootstrap';

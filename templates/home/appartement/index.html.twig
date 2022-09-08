@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appartements{% endblock %}
+
+{% block body %}
+    <div class="container-custom">
+        <nav class="bg-gray-100 px-5 py-3 rounded-md w-full">
+            <ol class="list-reset flex">
+                <li><a href={{path('app_home')}} class="text-blue-900 ">Accueil</a></li>
+                <li><span class="text-gray-500 mx-2">/</span></li>
+                <li class="text-gray-500">Appartements</li>
+            </ol>
+        </nav>
+    </div>
+    <p class="bg-blue-50 my-5">
+        <div class="container-custom">
+            <div class="">
+                <h3>Appartements</h3>
+            </div>
+        </div>
+    </p>
+    <section class=" py-10">
+        <div class="container-custom">
+            <div class="grid grid-cols-5 gap-5 ">
+                <div class="grid grid-cols-1 gap-5 col-span-3">
+                    {% for room in rooms | reverse %}
+                    <div class="md:flex shadow bg-white">
+                        <div class="max-w-xs">
+                            <img class="w-full aspect-video rounded-md" src={{asset(room.images[0].link)}} alt="">
+                        </div>
+                        <!-- card body -->
+                        <div class="p-5 flex-1 gap-5 justify-betwee">
+                            <div class="lg:w-3/4">
+                                <p class="text-xl font-semibold text-blue-900"><a href={{path('app_appartements_detail', {id: room.id})}}>{{room.name}}</a></p>
+                                <div class="mt-2 flex text-xl gap-4 font-light text-gray-600">
+                                    <div class="text-sm">
+                                        <span><i class="fa-solid fa-ruler-combined"></i></span>
+                                        <span>{{room.surface}} m²</span>
+                                    </div>
+                                    <div class="text-sm">
+                                        <span><i class=" fa-solid fa-user"></i></span>
+                                        <span>{{room.capacity}} personnes</span>
+                                    </div>
+                                    <div class="text-sm">
+                                        <span><i class="fa-regular fa-eye"></i></span>
+                                        <span>{{room.visitors | length }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <span class="">
+                                    <span class="text-3xl font-semibold">{{room.price}}€</span> / 1 nuit
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {# <div class="container-custom mt-5">
+                        <div class="flex justify-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="flex list-style-none">
+                                    <li class="page-item disabled"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-500 pointer-events-none focus:shadow-none"
+                                            href="#" tabindex="-1" aria-disabled="true">Précédent</a></li>
+                                    <li class="page-item"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                            href="#">1</a></li>
+                                    <li class="page-item active"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-blue-600 outline-none transition-all duration-300 rounded-full text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
+                                            href="#">2 <span class="visually-hidden"></span></a></li>
+                                    <li class="page-item"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                            href="#">3</a></li>
+                                    <li class="page-item"><a
+                                            class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded-full text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                            href="#">Suivant</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div> #}
+                </div>
+                <div id="fixed-scroll" class="col-span-2 relative">
+                    <div id="fixed-bar" class="w-full">
+                        <div class="fb-page" data-href="https://web.facebook.com/UdlaJudo" data-tabs="timeline" data-width="" data-height="250" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/UdlaJudo" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/UdlaJudo">Douala University Club judo</a></blockquote></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+{% endblock %}

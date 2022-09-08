@@ -6,6 +6,7 @@ use App\Entity\Room;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,6 +25,8 @@ class RoomType extends AbstractType
                 'required' => true
             ])
             ->add('price')
+            ->add('bedroom')
+            ->add('shower')
             ->add('description')
             ->add('facilities')
             ->add('files', FileType::class, [

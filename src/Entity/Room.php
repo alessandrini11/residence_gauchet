@@ -60,6 +60,12 @@ class Room
     #[ORM\ManyToMany(targetEntity: Visitor::class, mappedBy: 'rooms')]
     private Collection $visitors;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $bedroom = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $shower = null;
+
     public function __construct()
     {
         $this->facilities = new ArrayCollection();
@@ -233,6 +239,30 @@ class Room
         if ($this->visitors->removeElement($visitor)) {
             $visitor->removeRoom($this);
         }
+
+        return $this;
+    }
+
+    public function getBedroom(): ?int
+    {
+        return $this->bedroom;
+    }
+
+    public function setBedroom(?int $bedroom): self
+    {
+        $this->bedroom = $bedroom;
+
+        return $this;
+    }
+
+    public function getShower(): ?int
+    {
+        return $this->shower;
+    }
+
+    public function setShower(?int $shower): self
+    {
+        $this->shower = $shower;
 
         return $this;
     }
