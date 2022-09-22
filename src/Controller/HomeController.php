@@ -14,6 +14,7 @@ use App\Services\VisitorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -29,11 +30,11 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/apropos', name: 'app_apropos')]
-    public function apropos(): Response
-    {
-        return $this->render('home/apropos.html.twig');
-    }
+    // #[Route('/apropos', name: 'app_apropos')]
+    // public function apropos(): Response
+    // {
+    //     return $this->render('home/apropos.html.twig');
+    // }
 
     #[Route('/contact', name: 'app_contact')]
     public function contact(): Response
@@ -42,10 +43,11 @@ class HomeController extends AbstractController
     }
 
     #[Route('/appartements', name: 'app_appartements')]
-    public function appartements(RoomRepository $roomRepository): Response
+    public function appartements(RoomRepository $roomRepository, PostRepository $postRepository): Response
     {
         return $this->render('home/appartement/index.html.twig', [
-            'rooms' => $roomRepository->findAll()
+            'rooms' => $roomRepository->findAll(),
+            
         ]);
     }
 
@@ -56,13 +58,18 @@ class HomeController extends AbstractController
     }
 
     #[Route('/appartements/{id}', name: 'app_appartements_detail')]
-    public function appartementsDetail(Room $room, Request $request, VisitorService $visitorService): Response
+    public function appartementsDetail(int $id, RoomRepository $roomRepository, Request $request, VisitorService $visitorService, PostRepository $postRepository): Response
     {
+        $room = $roomRepository->find($id);
+        if (!$room) {
+            throw $this->createNotFoundException();
+        }
 
         $ip = $request->getClientIp();
         $visitorService->isVisitedRoom($room, $ip);
         return $this->render('home/appartement/detail.html.twig', [
-            'room' => $room
+            'room' => $room,
+            'posts' => $postRepository->findAll()
         ]);
     }
 

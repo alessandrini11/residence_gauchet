@@ -48,7 +48,7 @@
                       </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
-                      {% for post in posts %}
+                      {% for post in posts | reverse %}
                         <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">
                           <td class="py-3 px-6 text-left">
                             <div class="flex items-center">

@@ -23,6 +23,7 @@ class RoomController extends AbstractController
     {
         return $this->render('room/index.html.twig', [
             'rooms' => $roomRepository->findAll(),
+            'current_menu' => 'room'
         ]);
     }
 
@@ -54,6 +55,13 @@ class RoomController extends AbstractController
         ]);
     }
 
+    #[Route('/addpictures/{id}', name: 'app_room_addoicture', methods:['GET', 'POST'])]
+    public function addPictures(Room $room, Request $request): Response
+    {
+        return $this->render('room/show.html.twig', [
+            'room' => $room,
+        ]);
+    }
     #[Route('/{id}', name: 'app_room_show', methods: ['GET'])]
     public function show(Room $room, VisitorService $visitorService, Request $request): Response
     {
@@ -75,6 +83,7 @@ class RoomController extends AbstractController
             if ($form->get('files')->getData()) {
                 foreach ($oldImages as $image) {
                     $imagesService->removeImage($image->getLink());
+                    $room->removeImage($image);
                 }
                 $uploadedImages = $form->get('files')->getData();
                 foreach ($uploadedImages as $file) {

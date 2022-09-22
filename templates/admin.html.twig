@@ -21,7 +21,32 @@
         {% endblock %}
     </head>
     <body class="">
-        <span id="to-top-button" class="z-20 text-2xl transition-all duration-700 fixed bottom-20 right-5 p-2 text-blue-900 bg-blue-100 rounded-md cursor-pointer">
+        <div id="mobile-menu-backend" class="z-20 absolute w-full top-0 -left-full h-screen px-8 border-2 text-blue-900 bg-white lg:hidden transition-all duration-500">
+            <div class="py-6 flex justify-between">
+                <a href="/" class="text-2xl font-medium ">
+                    Dashboard
+                </a>
+                <button id="mobile-menu-close" class="text-xl lg:hidden">
+                    <i class="fa fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="space-y-3">
+                <ul class="space-y-3">
+                    <li><a href="{{path('admin')}}" class="{% if current_menu is defined and current_menu == 'dashboard'  %}border-b-2 border-blue-500{% endif %} w-fit pb-1">Dashboard</a></li>
+                    <li><a href="{{path('app_post_index')}}" class="{% if current_menu is defined and current_menu == 'post'  %}border-b-2 border-blue-500{% endif %} w-fit pb-1" >Articles</a></li>
+                    <li><a href="{{path('app_room_index')}}" class="{% if current_menu is defined and current_menu == 'room'  %}border-b-2 border-blue-500{% endif %} w-fit pb-1" >Appartements</a></li>
+                    <li><a href="{{path('app_category_index')}}" class="{% if current_menu is defined and current_menu == 'category'  %}border-b-2 border-blue-500{% endif %} w-fit pb-1" >Categories</a></li>
+                    <li><a href="{{path('app_facility_index')}}" class="{% if current_menu is defined and current_menu == 'facility'  %}border-b-2 border-blue-500{% endif %} w-fit pb-1" >Facilités</a></li>
+                    <li><a href="{{path('app_user_index')}}" class="{% if current_menu is defined and current_menu == 'user'  %}border-b-2 border-blue-500{% endif %} w-fit pb-1" >Utilisateurs</a></li>
+                </ul>
+            </div>
+            <ul class="mt-5 flex space-x-5">
+                <li><span class="cursor-pointer">Bienvenu(e) {{app.user.name}} </span></li>
+                <li><span class="cursor-pointer"><i class="fa fa-cog text-xl"></i></span></li>
+                <li><a href={{path('app_logout')}}><i class="fa fa-power-off text-xl"></i></a></li>
+            </ul>
+        </div>
+        <span id="to-top-button" class="z-20 text-2xl transition-all duration-700 fixed bottom-20 right-5 p-2 text-blue-900 bg-blue-100 rounded-md cursor-pointer hidden">
             <i class="fa fa-arrow-up"></i>
         </span> 
         <div class="grid grid-cols-1 lg:grid-cols-12 relative">
@@ -34,28 +59,28 @@
                 <div class="space-y-3">
                     <ul class="space-y-3">
                         <li class="">
-                            <a href="{{path('admin')}}" class="border-b-2 border-blue-500 w-fit pb-1">Dashoard</a>
+                            <a href="{{path('admin')}}" class="{% if current_menu is defined and current_menu == 'dashboard'  %}border-b-2 border-blue-500{% endif %} w-fit pb-1">Dashoard</a>
                         </li>
                         <li>
-                            <a href="{{ path('app_room_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Appartements</a>
+                            <a href="{{ path('app_room_index') }}" class="{% if current_menu is defined and current_menu == 'room' %}border-b-2 border-blue-500{% endif %} w-fit pb-1">Appartements</a>
                         </li>
                         <li>
-                            <a href="{{ path('app_post_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Articles</a>
+                            <a href="{{ path('app_post_index') }}" class="{% if current_menu is defined and current_menu == 'post' %}border-b-2 border-blue-500{% endif %} w-fit pb-1">Articles</a>
                         </li>
                         <li>
-                            <a href="{{ path('app_category_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Categories</a>
+                            <a href="{{ path('app_category_index') }}" class="{% if current_menu is defined and current_menu == 'category' %}border-b-2 border-blue-500{% endif %} w-fit pb-1">Categories</a>
                         </li>
                         <li>
-                            <a href="{{ path('app_facility_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Facilités</a>
+                            <a href="{{ path('app_facility_index') }}" class="{% if current_menu is defined and current_menu == 'facility' %}border-b-2 border-blue-500{% endif %} w-fit pb-1">Facilités</a>
                         </li>
                         <li>
-                            <a href="{{ path('app_user_index') }}" class="border-b-2 border-blue-500 w-fit pb-1">Utilisateurs</a>
+                            <a href="{{ path('app_user_index') }}" class="{% if current_menu is defined and current_menu == 'user' %}border-b-2 border-blue-500{% endif %} w-fit pb-1">Utilisateurs</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="lg:col-span-10">
-                <nav class="z-10 py-6 bg-blue-900 text-white relative">
+                <nav id="menu" class="z-10 py-6 bg-blue-900 text-white relative">
                     <div class="w-11/12 mx-auto">
                         <div class="flex justify-between">
                             <a href={{path('app_home')}}>Résidence Gauchet</a>
@@ -75,38 +100,12 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <button id="menu-button" class="lg:hidden">
+                                <button id="menu-button-open" class="lg:hidden">
                                     <i class="fa fa-bars text-xl"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    
-                    {# <div id="mobile-menu" class="z-20 absolute w-full top-0 -left-full h-screen px-8 border-2 text-blue-900 bg-white lg:hidden transition-all duration-500">
-                        <div class="py-6 flex justify-between">
-                            <a href="/" class="text-2xl font-medium ">
-                                Dashboard
-                            </a>
-                            <button id="mobile-menu-close" class="text-xl lg:hidden">
-                                <i class="fa fa-xmark text-xl"></i>
-                            </button>
-                        </div>
-                        <div class="space-y-3">
-                            <span>Pages</span>
-                            <ul class="space-y-3">
-                                <li><a href="{{path('app_post_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Articles</a></li>
-                                <li><a href="{{path('app_room_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Appartements</a></li>
-                                <li><a href="{{path('app_category_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Categories</a></li>
-                                <li><a href="{{path('app_facility_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Facilités</a></li>
-                                <li><a href="{{path('app_user_index')}}" class="border-b-2 border-blue-500 w-fit pb-1" href="/">Utilisateurs</a></li>
-                            </ul>
-                        </div>
-                        <ul class="mt-5 flex space-x-5">
-                            <li><span class="cursor-pointer">Bienvenu(e) {{app.user.name}} </span></li>
-                            <li><span class="cursor-pointer"><i class="fa fa-cog text-xl"></i></span></li>
-                            <li><a href={{path('app_logout')}}><i class="fa fa-power-off text-xl"></i></a></li>
-                        </ul>
-                    </div> #}
                 </nav>
                 {% block body %}{% endblock %}
                 <footer class="py-5 bg-blue-900">

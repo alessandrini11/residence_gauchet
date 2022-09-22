@@ -50,6 +50,7 @@ class Dashboard extends AbstractController
             'posts' => $postRepository->findAll(),
             'visitors' => $visitorRepository->findAll(),
             'chart' => $chart,
+            'current_menu' => 'dashboard'
         ]);
     }
 }

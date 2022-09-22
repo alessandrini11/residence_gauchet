@@ -10,12 +10,16 @@
                 <div data-aos-duration="1000" data-aos="zoom-in" class= "flex-1">
                     <div class="lg:bg-blue-50 p-10 mt-12">
                         <p class="text-4xl font-semibold">Résidence Gauchet</p>
-                        <p class="text-xl text-gray-600 mt-8 p-3 border-l-4 border-l-blue-900">La résidence Gauchet met à votre disposition des appartements de luxe: meublés et non meublés et des studios à des prix défiant toutes concurrences</p>
+                        <p class="text-xl text-gray-600 mt-8 p-3 border-l-4 border-l-blue-900">
+                            Bienvenue à la Résidence Gauchet situé dans la ville de Yaoundé à 20 minutes de l'aéroport de Yaoundé
+                            et du centre ville. Vous y trouverez des appartements haut standing dans un cadre sécurisé et d'un calme 
+                            sans pareil.
+                        </p>
                     </div>
                 </div>
                 <div data-aos-duration="1000" data-aos="zoom-in" class="flex-1 hidden lg:block">
                     <div class="">
-                        <img class="w-full object-cover aspect-square" src={{asset("/images/2.jpg")}} alt="building">
+                        <img class="w-full object-cover aspect-square" src={{asset("images/residence/11.jpeg")}} alt="building">
                     </div>
                 </div>
             </div>
@@ -38,11 +42,11 @@
                         <div class="relative">
                             {% for image in room.images %}
                                 {% if loop.first %}
-                                    <img class="w-full aspect-video rounded-t-md" src={{asset(image.link)}} alt="">
+                                    <img class="w-full aspect-video rounded-t-md object-cover" src={{asset(image.link)}} alt="">
                                 {% endif %}
                             {% endfor %}
                             <span class="absolute floating-info">
-                                <span class="text-xl font-semibold">${{room.price}}</span> / 1 nuit
+                                <span class="text-xl font-semibold">{{room.price}} XAF</span> / 1 nuit
                             </span>
                         </div>
                         <!-- card body -->
@@ -94,7 +98,7 @@
                             <h3 class="text-2xl text-white">Restez plus longtemps, économisez d'avantage</h3>
                             <!-- card body -->
                             <div class="space-y-3 mt-3 pl-3 border-l-4">
-                                <p>Économisez jusqu'à 20% sur le tarif journalier pour les séjours de plus de 30 jours</p>
+                                <p>Économisez jusqu'à 15% pour les séjours de plus de 4 semaines</p>
                             </div>
                             <a  href={{path('app_appartements')}}  class="mt-5 bg-blue-100 text-blue-900 text-center py-3 font-semibold rounded-md cursor-pointer increase-hover block">
                                 <span>Voir les appartements</span>
@@ -136,7 +140,7 @@
                     <p class="text-blue-900 space-x-1 mt-5"><a href="" class="">Voir Plus</a> <span><i class="fa-solid fa-arrow-right"></i></span></p>
                 </div>
                 <div data-aos-duration="1000" data-aos="zoom-in-left" class="flex-1">
-                    <img src={{asset("/images/6.jpg")}} class="w-full aspect-video lg:aspect-square" alt="">
+                    <img src={{asset("images/appartements/IMG_2855.jpg")}} class="w-full aspect-video lg:aspect-square" alt="">
                 </div>
             </div>
         </div>
@@ -157,13 +161,13 @@
                     <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/1.jpg")}} alt="">
                 </div>
                 <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                    <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/2.jpg")}} alt="">
+                    <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("images/residence/1.jpeg")}} alt="">
                 </div>
                 <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                    <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/6.jpg")}} alt="">
+                    <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("images/residence/4.jpeg")}} alt="">
                 </div>
                 <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                    <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                    <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("images/residence/5.jpeg")}} alt="">
                 </div>
             </div>
         </div>
@@ -171,63 +175,5 @@
     {# blog post #}
     {{include('home/parts/_blog_post.html.twig', {posts})}}
     <!-- contact -->
-    <section>
-        <div class="container-custom">
-            <div class="lg:flex space-y-5 lg:space-y-0 items-center justify-between">
-                <div class="flex-1">
-                    <h3>Contacts</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 py-3 gap-5">
-                        <div data-aos-duration="1000" data-aos="fade-up" class="flex space-x-2">
-                            <span class="p-6 bg-blue-50 text-blue-900 rounded-md">
-                                <i class="text-xl fa-solid fa-phone"></i>
-                            </span>
-                            <ul>
-                                <li class="font-semibold">Téléphone</li>
-                                <li class="flex space-x-1"> <span><img class="h-5 w-5" src={{ asset("/images/france.jpeg") }} alt=""></span> <span>+33 658 698 778</span></li>
-                                <li class="flex space-x-1"> <span><img class="h-5 w-5" src={{ asset("/images/cameroun.png") }} alt=""></span> <span>+237 659 639 784</span></li>
-                            </ul>
-                        </div>
-                        <div data-aos-duration="1000" data-aos="fade-up" class="flex space-x-2">
-                            <span class="p-6 bg-blue-50 text-blue-900 rounded-md">
-                                <i class="text-xl fa-solid fa-at"></i>
-                            </span>
-                            <ul>
-                                <li class="font-semibold">Email</li>
-                                <li>contact@residence-gauchet.com</li>
-                                <li>support@gmail.com</li>
-                            </ul>
-                        </div>
-                        <div data-aos-duration="1000" data-aos="fade-up" class="flex space-x-2">
-                            <span class="p-6 bg-blue-50 text-blue-900 rounded-md">
-                                <i class="text-xl fa-solid fa-location-dot"></i>
-                            </span>
-                            <ul>
-                                <li class="font-semibold">Localisation</li>
-                                <li>Petit marché Odza, Yaoundé</li>
-                            </ul>
-                        </div>
-                        <div data-aos-duration="1000" data-aos="fade-up" class="flex space-x-2">
-                            <span class="p-6 bg-blue-50 text-blue-900 rounded-md">
-                                <i class="text-xl fa-regular fa-clock"></i>
-                            </span>
-                            <ul>
-                                <li class="font-semibold">Nous travaillons</li>
-                                <li>Tous les jours</li>
-                                <li>8h - 23h</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div data-aos-duration="1000" data-aos="zoom-in-left" class="div">
-                    <div class="mapouter">
-                        <div class="gmap_canvas"><iframe width="400" height="400" id="gmap_canvas"
-                                src="https://maps.google.com/maps?q=yaounde&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                                scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br>
-                            <a href="https://www.embedgooglemap.net">embedding google map in website</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{include('home/parts/_contact.html.twig')}}
 {% endblock %}

@@ -9,7 +9,7 @@
                 {% for image in room.images %}
                 <div class="mySlides">
                     <div class="numbertext">{{loop.index}} / {{room.images | length}}</div>
-                    <img onclick='currentSlide('+{{loop.index}}+')' class="w-full rounded-md aspect-square h-screen" src={{image.link}} alt="">
+                    <img onclick='currentSlide('+{{loop.index}}+')' class="w-full rounded-md aspect-square object-cover" src={{image.link}} alt="">
                 </div>
                 {% endfor %}
                 <!-- Next/previous controls -->
@@ -22,15 +22,16 @@
                 </div>
             </div>
         </div>
-        <div class="carousel grid gap-5 px-10">
+        <div class="carousel grid gap-3 px-10">
             {% for image in room.images %}
-            <div class="">
-                <img class="w-full rounded-md aspect-square cursor-pointer" onclick="openModal();currentSlide(1)" src={{image.link}} alt="">
+            <div class="mx-3">
+                <img class="w-full rounded-md aspect-square cursor-pointer object-cover" onclick="openModal();currentSlide(1)" src={{image.link}} alt="">
             </div>
             {% endfor %}
         </div>
         <div class="grid lg:grid-cols-3 space-y-5 lg:space-y-0 lg:space-x-5">
             <div class="lg:col-span-2">
+                <h3 class="text-blue-900">{{room.name}}</h3>
                 <div class="flex text font-light py-5">
                     <div>
                         <span><i class="fa-regular fa-eye"></i></span>
@@ -46,7 +47,7 @@
                             <h3 class="text-blue-900">Equipements</h3>
                             <ul class="py-2 grid grid-cols-3 gap-3">
                                 {% for facility in room.facilities %}
-                                    <li class="flex"> <span class="h-6 w-6 rounded-full border flex justify-center items-center border-blue-900 mr-2"><i class="fa-solid fa-check text-blue-900"></i></span> {{facility.name}}</li>
+                                    <li class="flex capitalize"> <span class="h-6 w-6 rounded-full border flex justify-center items-center border-blue-900 mr-2"><i class="fa-solid fa-check text-blue-900"></i></span> {{facility.name}}</li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -56,7 +57,8 @@
             <div class="lg:col-span-1">
                 <div class="p-6 bg-white rounded-md space-y-5">
                     <ul class="shadow-lg p-6 space-y-1 ">
-                        <li class=""> <i class="fa-solid fa-money-bill"></i> <span class="text-3xl font-semibold">84€</span> / <span>1 nuit</span> </li>
+                        <li class=""> <i class="fa-solid fa-money-bill"></i> <span class="text-3xl font-semibold">{{room.price}} XAF</span> / <span>jour</span></li>
+                        <li><i class="fa-solid fa-calendar"></i> <span class="text-sm">7 nuits au minimum</span></li>
                         <li><i class="fa-solid fa-user"></i> {{room.capacity}} personnes</li>
                         <li><i class="fa-solid fa-bed"></i> {{room.bedroom}} chambres</li>
                         <li><i class="fa-solid fa-shower"></i> {{room.shower}} douches</li>
@@ -80,8 +82,8 @@
         </div>
     </div>
 </section>
-{{include('home/parts/_reservation.html.twig')}}
-{{include('home/parts/_blog_post.html.twig')}}
+{# {{include('home/parts/_reservation.html.twig')}} #}
+{# {{include('home/parts/_blog_post.html.twig',{posts})}} #}
 <script>
     // Open the Modal
     function openModal() {

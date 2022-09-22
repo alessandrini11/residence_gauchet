@@ -26,7 +26,7 @@
                     {% for room in rooms | reverse %}
                     <div class="md:flex shadow bg-white">
                         <div class="max-w-xs">
-                            <img class="w-full aspect-video rounded-md" src={{asset(room.images[0].link)}} alt="">
+                            <img class="w-full aspect-video rounded-md object-cover" src={{asset(room.images[0].link)}} alt="">
                         </div>
                         <!-- card body -->
                         <div class="p-5 flex-1 gap-5 justify-betwee">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="mt-5">
                                 <span class="">
-                                    <span class="text-3xl font-semibold">{{room.price}}€</span> / 1 nuit
+                                    <span class="text-3xl font-semibold">{{room.price}} <span class="text-sm">XAF</span></span> / jour
                                 </span>
                             </div>
                         </div>

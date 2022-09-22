@@ -50,7 +50,7 @@
                     </tr>
                   </thead>
                   <tbody class="text-gray-600 text-sm font-light">
-                    {% for room in rooms %}
+                    {% for room in rooms | reverse %}
                       <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">
                         <td class="py-3 px-6 text-left">
                           <div class="flex items-center">
@@ -70,7 +70,7 @@
                         </td>
                         <td class="py-3 px-6 text-center">
                           <div class="flex items-center justify-center">
-                            <span>{{room.price}} €</span>
+                            <span>{{room.price}} xaf</span>
                           </div>
                         </td>
                         <td class="py-3 px-6 text-center">

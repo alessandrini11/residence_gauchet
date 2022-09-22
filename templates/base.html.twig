@@ -6,9 +6,12 @@
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>{% block title %}{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="icon" href={{asset('images/logo/logo.jpg')}}>
+        {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -30,46 +33,56 @@
         <span id="to-top-button" class="z-20 transition-all duration-700 fixed bottom-20 right-5 p-2 text-blue-900 bg-blue-100 rounded-md cursor-pointer hidden">
             <i class="text-2xl fa-solid fa-arrow-up"></i>
         </span>
+        <nav id="mobile-menu-front"
+            class="transition ease-in-out duration-500 z-10 bg-white space-y-5 fixed top-0 -right-full h-screen w-full ">
+            <div class="container-custom">
+                <div class="flex justify-between items-center h-16">
+                    <a href="" class="font-semibold text-blue-900 text-3xl">
+                        <img src={{asset('images/logo/logo.jpg')}} alt="">
+                    </a>
+                    <button id="mobile-menu-close">
+                        <i class="text-2xl fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <ul class=" text-xl space-y-5">
+                    <li><a href={{path('app_home')}}>Accueil</a></li>
+                    {# <li><a href={{path('app_apropos')}}>A propos</a></li> #}
+                    <li><a href={{path('app_gallerie')}}>Gallerie</a></li>
+                    <li><a href={{path('app_appartements')}}>Appartements</a></li>
+                    <li><a href={{path('app_blog')}}>Blog</a></li>
+                    <li class=""><a href={{path('app_contact')}}>Contact</a></li>
+                    {% if app.user %}
+                    <li><a href={{path('admin')}}>Tableau de bord</a></li>
+                    <li><a href={{path('app_logout')}}>Déconnexion</a></li>
+                    {% endif %}
+                    <li><i class="text-blue-900 fa-brands fa-facebook-f"></i></li>
+                </ul>
+            </div>
+        </nav>
         <!-- navigation -->
         <div id="menu" class="z-10 bg-white lg:block top-0 right-0 left-0 w-full">
             <div class="container-custom">
                 <nav class="flex justify-between items-center h-16">
-                    <a href="" class="font-semibold text-blue-900 text-3xl">Résidence Gauchet</a>
+                    <a href="" class="font-semibold text-blue-900 text-3xl">
+                        <img class="w-20 h-10" src={{asset('images/logo/logo.jpg')}} alt="">
+                    </a>
                     <ul class="hidden lg:flex items-center space-x-8">
                         <li><a href={{path('app_home')}}>Accueil</a></li>
-                        <li><a href={{path('app_apropos')}}>A propos</a></li>
+                        {# <li><a href={{path('app_apropos')}}>A propos</a></li> #}
                         <li><a href={{path('app_gallerie')}}>Gallerie</a></li>
                         <li><a href={{path('app_appartements')}}>Appartements</a></li>
                         <li><a href={{path('app_blog')}}>Blog</a></li>
-                        <li class="bg-blue-100 text-blue-900 py-2 px-4 rounded"><a href="contact.html">Contact</a></li>
+                        <li class="bg-blue-100 text-blue-900 py-2 px-4 rounded"><a href={{path('app_contact')}}>Contact</a></li>
                         {% if app.user %}
                         <li><a href={{path('admin')}}>Tableau de bord</a></li>
                         <li><a href={{path('app_logout')}}>Déconnexion</a></li>
                         {% endif %}
                     </ul>
-                    <button id="menu-button" class="lg:hidden">
+                    <button id="menu-button-front" class="lg:hidden">
                         <i class="text-2xl fa-solid fa-bars"></i>
                     </button>
                 </nav>
-                {# <nav id="mobile-menu-front"
-                    class="z-10 bg-white space-y-5 fixed top-0 right-0 -right-full h-screen w-full transition-all duration-500">
-                    <div class="container-custom">
-                        <div class="flex justify-between items-center h-16">
-                            <a href="" class="font-semibold text-blue-900 text-3xl">Résidence Gauchet</a>
-                            <button id="mobile-menu-close">
-                                <i class="text-2xl fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-                        <ul class=" text-xl space-y-5">
-                            <li><a href={{path('app_home')}}>Accueil</a></li>
-                            <li><a href={{path('app_apropos')}}>A propos</a></li>
-                            <li><a href="">Logement</a></li>
-                            <li><a href="">Blog</a></li>
-                            <li class=""><a href="">Contact</a></li>
-                            <li><i class="text-blue-900 fa-brands fa-facebook-f"></i></li>
-                        </ul>
-                    </div>
-                </nav> #}
+                
             </div>
         </div>
         {% block body %}{% endblock %}
@@ -84,10 +97,12 @@
                         <div class="flex-1">
                             <h4 class="font-semibold mb-3">Liens rapides</h4>
                             <ul class="font-thin text-base">
-                                <li>Accueil</li>
-                                <li>A propos</li>
-                                <li>Appartements</li>
-                                <li>Blog</li>
+                                <li><a href={{path('app_home')}}>Accueil</a></li>
+                                {# <li><a href={{path('app_apropos')}}>A propos</a></li> #}
+                                <li><a href={{path('app_gallerie')}}>Gallerie</a></li>
+                                <li><a href={{path('app_appartements')}}>Appartements</a></li>
+                                <li><a href={{path('app_blog')}}>Blog</a></li>
+                                <li><a href={{path('app_contact')}}>Contact</a></li>
                             </ul>
                         </div>
                         <div class="flex-1">
@@ -106,8 +121,8 @@
                                         <i class="text-base fa-solid fa-phone"></i>
                                     </span>
                                     <ul class="font-thin text-base">
-                                        <li> +33 658 698 778</li>
-                                        <li> +237 659 639 784</li>
+                                        <li>+33 675 510 742</li>
+                                        <li>+237 698 601 739</li>
                                     </ul>
                                 </div>
                             </div>
@@ -127,6 +142,7 @@
         </footer>
     </body>
     <div id="fb-root"></div>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v14.0&appId=2808832269373288&autoLogAppEvents=1" nonce="sopTV7Qr"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -138,9 +154,15 @@
                 slidesToShow: 3,
                 slidesToScroll: 1,
                 autoplay: true,
-                autoplaySpeed: 5000,
+                autoplaySpeed: 3000,
             });
         })
-        
+        let map = L.map('map').setView([3.802910349851331, 11.54734941382583], 13);
+        let marker = L.marker([3.802910349851331, 11.54734941382583]).addTo(map);
+        let tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 13,
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
     </script>
 </html>

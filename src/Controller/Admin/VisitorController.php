@@ -18,6 +18,7 @@ class VisitorController extends AbstractController
     {
         return $this->render('visitor/index.html.twig', [
             'visitors' => $visitorRepository->findAll(),
+            'active' => true
         ]);
     }
 

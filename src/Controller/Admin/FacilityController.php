@@ -18,6 +18,7 @@ class FacilityController extends AbstractController
     {
         return $this->render('facility/index.html.twig', [
             'facilities' => $facilityRepository->findAll(),
+            'current_menu' => 'facility'
         ]);
     }
 

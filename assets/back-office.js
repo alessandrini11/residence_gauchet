@@ -1,10 +1,11 @@
 AOS.init();
 const $ = require('jquery')
 
-const menuBtnOpen = document.getElementById("menu-button")
-const mobileMenuFront = document.getElementById("mobile-menu")
-const menuBtnClose = $("#mobile-menu-close")
-const toTopButton = $("#to-top-button")
+const menu = document.querySelector('#menu')
+const menuBtnOpen = document.querySelector("#menu-button-open")
+const mobileMenuBack = document.querySelector("#mobile-menu-backend")
+const menuBtnClose = document.querySelector("#mobile-menu-close")
+const toTopButton = document.querySelector("#to-top-button")
 const imageUploader = document.getElementById("post_file")
 const imagesUploader = document.getElementById("room_files")
 const imageUploadDisplayer = document.getElementById("image-displayer")
@@ -91,27 +92,25 @@ if (imageUploader) {
         imageUploadPreview.src = URL.createObjectURL(e.target.files[0])
     })
 }
-menuBtnOpen.on('click', () => {
-    mobileMenuFront.classList.toggle("-right-full")
+menuBtnOpen.addEventListener('click', () => {
+    mobileMenuBack.classList.toggle("-left-full")
 })
 
-menuBtnClose.on('click', () => {
-    mobileMenuFront.classList.toggle("-right-full")
+menuBtnClose.addEventListener('click', () => {
+    mobileMenuBack.classList.toggle("-left-full")
 })
 
-toTopButton.on('click', () => {
+toTopButton.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
 })
 
 window.addEventListener('scroll', (e) => {
-    if(1 === 1){
-        if(window.scrollY > 100){
-            toTopButton.removeClass('hidden')
-            menu.classList.add("fixed")
-        } else {
-            toTopButton.addClass('hidden')
-            menu.classList.remove("fixed")
-        }
+    if(window.scrollY > 100){
+        toTopButton.classList.remove('hidden')
+        menu.classList.add("fixed")
+    } else {
+        toTopButton.classList.add('hidden')
+        menu.classList.remove("fixed")
     }
 })
 

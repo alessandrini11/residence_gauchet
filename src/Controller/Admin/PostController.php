@@ -26,6 +26,7 @@ class PostController extends AbstractController
     {
         return $this->render('post/index.html.twig', [
             'posts' => $postRepository->findAll(),
+            'current_menu' => 'post'
         ]);
     }
 

@@ -3,6 +3,86 @@
 {% block title 'gallerie' %}
 
 {% block body %}
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+
+    <div class="mySlides">
+      <div class="numbertext">1 / 12</div>
+      <img class="object-cover" src={{asset("/images/1.jpg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">2 / 12</div>
+      <img class="object-cover" src={{asset("/images/2.jpg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">3 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/1.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">4 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/2.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">5 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/3.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">6 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/4.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">7 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/5.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">8 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/6.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">9 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/7.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">10 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/8.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">11 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/9.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">12 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/10.jpeg")}} style="width:100%">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">12 / 12</div>
+      <img class="object-cover" src={{asset("images/residence/11.jpeg")}} style="width:100%">
+    </div>
+
+    <!-- Next/previous controls -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <!-- Caption text -->
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+
+  </div>
+</div>
 <div class="container-custom">
     <nav class="bg-gray-100 px-5 py-3 rounded-md w-full">
         <ol class="list-reset flex">
@@ -26,43 +106,43 @@
                 <div class="">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/1.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(1)" src={{asset("/images/1.jpg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/2.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(2)" src={{asset("/images/2.jpg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/6.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(3)" src={{asset("images/residence/1.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(4)" src={{asset("images/residence/2.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(5)" src={{asset("images/residence/3.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(6)" src={{asset("images/residence/4.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(7)" src={{asset("images/residence/5.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(8)" src={{asset("images/residence/6.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(9)" src={{asset("images/residence/7.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(10)" src={{asset("images/residence/8.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(11)" src={{asset("images/residence/9.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(12)" src={{asset("images/residence/10.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
-                            <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
+                            <img class="increase-hover w-full rounded-lg aspect-square" onclick="openModal();currentSlide(13)" src={{asset("images/residence/11.jpeg")}} alt="">
                         </div>
                         <div data-aos-duration="1000" data-aos="zoom-in" class="">
                             <img class="increase-hover w-full rounded-lg aspect-square" src={{asset("/images/5.jpg")}} alt="">
@@ -77,4 +157,46 @@
     </div>
 </section>
 {{include('home/parts/_reservation.html.twig')}}
+<script>
+    // Open the Modal
+    function openModal() {
+    document.getElementById("myModal").style.display = "block";
+    }
+
+    // Close the Modal
+    function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+    }
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+    showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+    showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        captionText.innerHTML = dots[slideIndex-1].alt;
+    }
+</script>
 {% endblock %}
