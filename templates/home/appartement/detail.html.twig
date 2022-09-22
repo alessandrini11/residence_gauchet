@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}{{room.name}}{% endblock %}
 {% block body %}
 <section class="">
     <div class="container-custom">
@@ -82,7 +82,8 @@
         </div>
     </div>
 </section>
-{# {{include('home/parts/_reservation.html.twig')}} #}
+
+{{include('home/parts/_reservation.html.twig')}}
 {# {{include('home/parts/_blog_post.html.twig',{posts})}} #}
 <script>
     // Open the Modal
